@@ -15,3 +15,5 @@ I finaly decided to select Django as :
 - Yago uses this kind of web framework (Rails)
 - Django is quite similar to Rails
 - Django automaticaly provides an admin interface that allows Yago's salespeople to see the lead's contact information
+
+However a downside of using Django is that I am not as familiar with this technology.

@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 django = "*"
+psycopg2-binary = "*"
+requests = "*"
 
 [dev-packages]
 pytest = "*"
@@ -13,6 +15,7 @@ flake8 = "*"
 isort = "*"
 black = "*"
 pyright = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.10"

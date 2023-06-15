@@ -1,0 +1,6 @@
+- fields:
+    nacebel_code: 951
+    deductibleFormula: S
+    coverageCeilingFormula: L
+  model: quotes.NacebelCodeAdvice
+  pk: 1

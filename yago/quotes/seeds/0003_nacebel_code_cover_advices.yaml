@@ -1,0 +1,5 @@
+- fields:
+    nacebel_code_advice: 1
+    cover: legalExpenses
+  model: quotes.NacebelCodeCoverAdvice
+  pk: 1
