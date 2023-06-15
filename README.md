@@ -17,3 +17,6 @@ I finaly decided to select Django as :
 - Django automaticaly provides an admin interface that allows Yago's salespeople to see the lead's contact information
 
 However a downside of using Django is that I am not as familiar with this technology.
+
+# Todo 
+- [ ] Fix nacebel english labels that are always empty
