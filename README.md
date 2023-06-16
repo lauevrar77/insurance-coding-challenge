@@ -18,5 +18,19 @@ I finaly decided to select Django as :
 
 However a downside of using Django is that I am not as familiar with this technology.
 
-# Todo 
+### Justfile
+...
+
+### Suggestion system
+...
+
+### Not separating frontend and backend
+...
+
+## Hypothesis
+### Advices only on five digits codes
+* Not enforced on admin interface
+
+
+## Todo 
 - [ ] Fix nacebel english labels that are always empty

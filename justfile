@@ -17,6 +17,9 @@ run:
 flush:
   pipenv run python3 yago/manage.py flush
 
+test:
+  cd yago; DJANGO_SETTINGS_MODULE="yago.settings" pipenv run python3 -m pytest
+
 seed:
   pipenv run python3 yago/manage.py loaddata yago/quotes/seeds/0001_nacebel.yaml
   pipenv run python3 yago/manage.py loaddata yago/quotes/seeds/0002_nacebel_code_advices.yaml

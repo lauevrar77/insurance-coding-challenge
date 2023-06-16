@@ -1,5 +1,5 @@
 - fields:
-    nacebel_code: 951
+    nacebel_code: 1830
     deductibleFormula: S
     coverageCeilingFormula: L
   model: quotes.NacebelCodeAdvice

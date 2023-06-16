@@ -24,7 +24,44 @@ class NacebelCodeAdvice(models.Model):
         max_length=255, choices=[("S", "Small"), ("L", "Large")]
     )
 
+    @property
+    def covers(self) -> list["NacebelCodeCoverAdvice"]:
+        return list(self.cover_advices.all())
+
 
 class NacebelCodeCoverAdvice(models.Model):
-    nacebel_code_advice = models.ForeignKey(NacebelCodeAdvice, on_delete=models.CASCADE)
+    nacebel_code_advice = models.ForeignKey(
+        NacebelCodeAdvice, on_delete=models.CASCADE, related_name="cover_advices"
+    )
     cover = models.CharField(max_length=255)
+
+
+class QuoteAdvice:
+    def __init__(self, quote_code_advices: list[NacebelCodeAdvice]):
+        self.__advices: list[NacebelCodeAdvice] = quote_code_advices
+
+    @property
+    def coverage_ceiling_formula(self) -> str:
+        values = ["S", "L"]
+        max_index = -1
+        for advice in self.__advices:
+            max_index = max(max_index, values.index(advice.coverageCeilingFormula))
+        return values[max_index]
+
+    @property
+    def deductible_formula(self) -> str:
+        values = ["S", "M", "L"]
+        max_index = -1
+        for advice in self.__advices:
+            max_index = max(max_index, values.index(advice.deductibleFormula))
+        return values[max_index]
+
+    @property
+    def covers(self) -> list[str]:
+        return list(
+            {
+                cover_advice.cover
+                for advice in self.__advices
+                for cover_advice in advice.covers
+            }
+        )
