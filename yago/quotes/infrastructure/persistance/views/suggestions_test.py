@@ -2,11 +2,11 @@ from quotes.models import (
     NacebelCode,
     NacebelCodeAdvice,
     NacebelCodeCoverAdvice,
-    QuoteAdvice,
 )
+from quotes.infrastructure.persistance.views.suggestions import SuggestionView
 
 
-def test_quote_advice(
+def test_suggest_for_codes(
     db,
 ):  # This unused argument is for database instantiation by pytest-django
     # Prepare
@@ -48,7 +48,7 @@ def test_quote_advice(
     cover_advice2.save()
 
     # Exercise
-    advice = QuoteAdvice([advice1, advice2])
+    advice = SuggestionView().suggestion_for_codes(["12345", "22345"])
 
     # Test
     assert set(advice.covers) == {"cover1", "cover2"}
