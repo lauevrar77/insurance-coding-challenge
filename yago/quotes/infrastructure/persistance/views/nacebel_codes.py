@@ -49,6 +49,9 @@ class NacebelCodeTree:
 
 
 class NacebelCodeView:
+    def from_codes(self, codes: list[str]) -> list[NacebelCode]:
+        return list(NacebelCode.objects.filter(code__in=codes).all())
+
     def all_as_tree(self) -> list[NacebelCodeTree]:
         level1_codes = []
         all_codes = {}

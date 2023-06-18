@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma simulation</title>
+</head>
+
+<body>
+    <h1>Ma simulation</h1>
+    <p>Vous souhaitez revenir à votre simulation plus tard ? Sauvegardez l'URL suivante :
+        <a href="{{ request.get_full_path }}">Ma simulation</a>
+    </p>
+    <h2>Mes informations</h2>
+    <table>
+        <tr>
+            <th>Laurent</th>
+            <td>{{ simulation.lead_contact.firstname }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ simulation.lead_contact.lastname }}</td>
+        </tr>
+        <tr>
+            <th>Adresse</th>
+            <td>{{ simulation.lead_contact.address }}</td>
+        </tr>
+        <tr>
+            <th>Téléphone</th>
+            <td>{{ simulation.lead_contact.phone }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ simulation.lead_contact.email }}</td>
+        </tr>
+    </table>
+    <h2>Mon entreprise</h2>
+    <table>
+        <tr>
+            <th>Nom</th>
+            <td>{{ simulation.enterprise.legal_name }}</td>
+        </tr>
+        <tr>
+            <th>N° d'entreprise</th>
+            <td>{{ simulation.enterprise.enterprise_number }}</td>
+        </tr>
+        <tr>
+            <th>Person physique</th>
+            <td>{{ simulation.enterprise.natural_person }}</td>
+        </tr>
+        <tr>
+            <th>Revenu annuel</th>
+            <td>{{ simulation.enterprise.annual_revenue }}€</td>
+        </tr>
+    </table>
+    <h2>Mes secteurs d'activités</h2>
+    <ul>
+        {% for sector in simulation.codes.all %}
+        <li>{{ sector.code }} - {{ sector.label_fr }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Nos suggestions personnalisées</h2>
+    <table>
+        <tr>
+            <th>Franchise</th>
+            <td>{{ simulation.deductible_formula }}</td>
+        </tr>
+        <tr>
+            <th>Plafond de couverture</th>
+            <td>{{ simulation.coverage_ceiling_formula }}</td>
+        </tr>
+        <tr>
+            <th>Couvertures suggérées</th>
+            <td>
+                <ul>
+                    {% for coverage in simulation.adviced_covers.all %}
+                    <li>{{ coverage.cover }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <h2>Ma simulation</h2>
+    <table>
+        <tr>
+            <th>Plafond de couverture</th>
+            <td>
+                {{ simulation.simulated_quote.coverage_ceiling }}€
+            </td>
+        </tr>
+        <tr>
+            <th>Franchise</th>
+            <td>
+                {{ simulation.simulated_quote.deductible }}€
+            </td>
+        </tr>
+        <tr>
+            <th>Couvertures suggérées</th>
+            <td>
+                <table>
+                    <tr>
+                        <th>Couverture</th>
+                        <th>Prix</th>
+                    </tr>
+                    {% for coverage in simulation.simulated_quote.covers.all %}
+                    <tr>
+                        <td>{{ coverage.cover }}</td>
+                        <td>{{ coverage.premium }}€</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

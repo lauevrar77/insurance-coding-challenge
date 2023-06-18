@@ -30,22 +30,9 @@ class GetQuoteCommand:
 
 
 @dataclass(frozen=True)
-class GrossPremiums:
-    after_delivery: float
-    public_liability: float
-    professional_indemnity: float
-    entrusted_objects: float
-    legal_expenses: float
-
-    @staticmethod
-    def from_dict(data: dict[str, Any]):
-        return GrossPremiums(
-            after_delivery=data["afterDelivery"],
-            public_liability=data["publicLiability"],
-            professional_indemnity=data["professionalIndemnity"],
-            entrusted_objects=data["entrustedObjects"],
-            legal_expenses=data["legalExpenses"],
-        )
+class GrossPremium:
+    cover: str
+    premium: float
 
 
 @dataclass(frozen=True)
@@ -54,7 +41,7 @@ class Quote:
     coverage_ceiling: int
     deductible: int
     quote_id: str
-    gross_premiums: GrossPremiums
+    gross_premiums: list[GrossPremium]
 
     @staticmethod
     def from_dict(data: dict[str, Any]):
@@ -63,7 +50,13 @@ class Quote:
             coverage_ceiling=data["coverageCeiling"],
             deductible=data["deductible"],
             quote_id=data["quoteId"],
-            gross_premiums=GrossPremiums.from_dict(data["grossPremiums"]),
+            gross_premiums=[
+                GrossPremium(
+                    cover=key,
+                    premium=value,
+                )
+                for key, value in data["grossPremiums"].items()
+            ],
         )
 
 

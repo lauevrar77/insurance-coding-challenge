@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 
 # Create your models here.
@@ -42,6 +43,8 @@ class QuoteAdvice:
 
     @property
     def coverage_ceiling_formula(self) -> str:
+        if not self.__advices:
+            return "S"
         values = ["S", "L"]
         max_index = -1
         for advice in self.__advices:
@@ -50,6 +53,9 @@ class QuoteAdvice:
 
     @property
     def deductible_formula(self) -> str:
+        if not self.__advices:
+            return "M"
+
         values = ["S", "M", "L"]
         max_index = -1
         for advice in self.__advices:
@@ -65,3 +71,54 @@ class QuoteAdvice:
                 for cover_advice in advice.covers
             }
         )
+
+
+class LeadContact(models.Model):
+    firstname = models.CharField(max_length=255)
+    lastname = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    phone = models.CharField(max_length=255)
+    email = models.EmailField()
+
+
+class Enterprise(models.Model):
+    legal_name = models.CharField(max_length=255)
+    enterprise_number = models.CharField(max_length=255)
+    natural_person = models.BooleanField()
+    annual_revenue = models.FloatField()
+
+
+class SimulatedQuote(models.Model):
+    available = models.BooleanField()
+    coverage_ceiling = models.FloatField()
+    deductible = models.FloatField()
+    remote_quote_id = models.CharField(max_length=255)
+
+
+class CoverPremium(models.Model):
+    cover = models.CharField(max_length=255)
+    premium = models.FloatField()
+    quote = models.ForeignKey(
+        SimulatedQuote, on_delete=models.CASCADE, related_name="covers"
+    )
+
+
+class QuoteSimulation(models.Model):
+    uuid = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
+    enterprise = models.ForeignKey(Enterprise, on_delete=models.CASCADE)
+    lead_contact = models.ForeignKey(LeadContact, on_delete=models.CASCADE)
+    codes = models.ManyToManyField(NacebelCode)
+    deductible_formula = models.CharField(
+        max_length=2, choices=[("S", "Small"), ("M", "Medium"), ("L", "Large")]
+    )
+    coverage_ceiling_formula = models.CharField(
+        max_length=2, choices=[("S", "Small"), ("L", "Large")]
+    )
+    simulated_quote = models.ForeignKey(SimulatedQuote, on_delete=models.CASCADE)
+
+
+class AdvicedCover(models.Model):
+    cover = models.CharField(max_length=255)
+    quote = models.ForeignKey(
+        QuoteSimulation, on_delete=models.CASCADE, related_name="adviced_covers"
+    )
