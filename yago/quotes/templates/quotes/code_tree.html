@@ -1,0 +1,16 @@
+{% for code in codes %}
+<li>
+    {% if code.level == 5 %}
+    <input type="checkbox" id="{{code.code}}" name="{{code.code}}">
+    <label for="{{code.code}}">{{ code.code }} - {{code.label_fr}}</label>
+    {% else %}
+    {{ code.code }} - {{ code.label_fr }}
+    {% endif %}
+
+    {% if code.childrens|length %}
+    <ul>
+        {% include "quotes/code_tree.html" with codes=code.childrens %}
+    </ul>
+    {% endif %}
+</li>
+{% endfor %}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulateur</title>
+</head>
+
+<body>
+    <h1>Simuler mon assurance</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% if error_message %}
+        <fieldset>
+            <legend>
+                <h1>Erreurs dans le formulaire</h1>
+            </legend>
+            <p><strong>{{ error_message }}</strong></p>
+        </fieldset>
+        {% endif %}
+        <fieldset>
+            <legend>
+                <h1>Mes informations personnelles</h1>
+            </legend>
+            <table>
+                <tr>
+                    <th>
+                        <label for="firstname">Prénom</label>
+                    </th>
+                    <td>
+                        <input type="text" name="firstname" id="firstname">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="lastname">Nom</label>
+                    </th>
+                    <td>
+                        <input type="text" name="lastname" id="lastname">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="address">Adresse</label>
+                    </th>
+                    <td>
+                        <input type="text" name="address" id="address">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="phone">N° de téléphone</label>
+                    </th>
+                    <td>
+                        <input type="text" name="phone" id="phone">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="email">Email</label>
+                    </th>
+                    <td>
+                        <input type="text" name="email" id="email">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend>
+                <h1>Les informations de mon entreprise</h1>
+            </legend>
+            <table>
+                <tr>
+                    <th>
+                        <label for="legal_name">Nom de l'entreprise</label>
+                    </th>
+                    <td>
+                        <input type="text" name="legal_name" id="legal_name">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="enterprise_number">N° de l'entreprise</label>
+                    </th>
+                    <td>
+                        <input type="text" name="enterprise_number" id="enterprise_number">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="natural_person">Personne physique</label>
+                    </th>
+                    <td>
+                        <input type="checkbox" name="natural_person" id="natural_person">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="annual_revenue">Revenu annuel</label>
+                    </th>
+                    <td>
+                        <input type="text" name="annual_revenue" id="annual_revenue">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend>
+                <h1>Mes secteurs d'activités</h1>
+            </legend>
+            <ul>
+                {% include "quotes/code_tree.html" %}
+            </ul>
+        </fieldset>
+        <input type="submit" value="Simuler mon assurance">
+    </form>
+</body>
+
+</html>
