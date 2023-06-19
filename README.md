@@ -73,7 +73,81 @@ Creating an admin user is mandatory to connect to the sales/admin interface (at 
 
 To create an admin user : `just createadmin_docker`
 
+## Executing unit tests on the app
+This app has a minimal unit tests coverture. They are mainly focused on the domain and the more "usefull" parts. 
+At start, I developped like I would normally do, with as much tests as possible and in a TDD approach. However as time flew by, I was forced to lower my expectations in term of tests coverage. This would never happen in a real production codebase
 
+To execute the tests : `just test`
+
+## User manual
+### Normal user
+Just access the root of the website. You will be welcomed with the quote form. 
+The following steps should be pretty straigthforward. 
+
+Note that the "submit button" is at the end of the page.
+
+### Admin user
+Access the `/admin` URI of the website. 
+
+Next you can connect with the credentials you received by email. 
+
+#### Add advice for a nacebel code
+Once connected, access the `Nacebel code advices` link in the `Quotes` menu.
+
+You will see the list of all existing code advices. This list is searchable by code. 
+
+Next on the top right of the page, you can click the `Add Nacebel code advice` button the access the adding form
+
+In this form you can select one of the level 5 codes, the `deductible formula` and the `coverage ceiling formula`. Finally, you can add one or more suggested covers for this code.
+
+When you are done just click the `Save` button.
+
+Once done, future quotes asking for this code will be enriched with your suggestion.
+
+#### Access the existing quotes
+Once connected, access the `Quote simulations` link in the `Quotes` menu.
+
+You will see the list of all existing quotes. This list is searchable by different criterions and filterable by review status.
+
+Next, click one of the existing quotes. 
+
+You will access it and see all the information involved.
+
+You will notice that : 
+* Enterprise and Lead Contact menus are not very "filled with information". They are just pointers to other domain objects accessible in their own menus.
+* The list of codes may seem useless but selected ones have a different background color
+* The simulated quote is a pointer to another domain object that retains the raw information from the insurer's API endpoint
+* The `reviewed` field allows a salesperson to mark that the client linked to this simulation have already been contacted. 
+* The adviced cover field represent the adviced covers from `Nacebel code advices`
+
+## Repository structure
+The root of this repository contains : 
+* A `scripts` directory. It contains some scripts used mainly for oneshot data transformation (for seeds).
+* Some files for editor and tools configuration
+* `justfile` the file used to configure the `just` command. It's like a `makefile`but with an easier and more modern synthax (in my opinion at least)
+* `nacebel.csv` : the raw nacebel codes csv
+* `Pipfile` and `Pipfile.lock` : used for Python dependencies management
+* `requirements.txt` : standardized export of dependencies better handled in `Pipfile`
+* `yago` : the Django app. Its structure will be explained in the following section
+
+### The `Yago` directory
+* `manage.py` : allows to manage the Django project. The just file contains a lot of commands using this file
+* `yago` directory : the base django app. Files other than the `settings.py` are not very usefull
+* `quotes` directory : the app developped for this technical challenge. Its structure will be described in the following section.
+
+### The `quotes` directory
+* `models.py` and `models_test.py` : contain the domain objects and their tests. I would prefer to make this a directory with one file per domain object but Django seems quite "touchy" with this file and the structure of the project.
+* `views.py` : where the views are defined. Architecturaly, my usual aim is that views contains as less business logic as possible. I would even prefer to cut `adapters` (marshaling, unmarshaling) from `endpoints`(receive requests as plain objects) but it doesn't seem easy in Django. In that purpose (as less business logic as possible), `persistance views` and `usecases` are introduced in the `infrastructure` layer. These classes take `commands` as arguments to make them able to manage requests from http views as well as (even if it is not the case here) asynchronous tasks from queues or GRPC requests.
+* `urls.py` : Mapping between URLs and views
+* `templates` : directory for html templates
+* `seeds` and `migrations` : directories for migrations and seeds
+* `infrastructure/persistance/views` : Contains objects aimed to make queries (and only queries) on the database. This clear distinction between "query side" and "write side" make simpler and smaller objects. Views receive requests as `commands` to allow to :
+  * executes them later if necessary
+  * replay a failed command if necessary
+  * receive the same query from different http views or protocols
+  * ... 
+* `infrastructure/services` : place where internal and external services are defined. 
+* `usecases` : interface between the "communication side of the app" (communication from and to the client or external systems) and the domain model. The aim of usecases is to load the domain object and apply the received command on them. It is the domain model the contains the business logic. Usecases are just and interface between the domain model and the outside worl and the domain model. 
 ## Design decisions
 ### Using a complete web framework
 For this technical challenge, I decided to use a features-full web framework ([Django](https://www.djangoproject.com)). 
@@ -112,6 +186,7 @@ However a downside of using Django is that I am not as familiar with this techno
 ## Security concerns
 
 ## Possible enhancements 
+- [ ] have a proper unit test coverage
 - [ ] Fix nacebel english labels that are always empty
 - [ ] Make sections and level collapsible in the form
 - [ ] Create a single view with all the information on the admin interface
