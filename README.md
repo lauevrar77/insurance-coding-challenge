@@ -73,8 +73,6 @@ Creating an admin user is mandatory to connect to the sales/admin interface (at 
 
 To create an admin user : `just createadmin_docker`
 
-## Limitations
-### No single view with all information on admin interface
 
 ## Design decisions
 ### Using a complete web framework
@@ -116,6 +114,6 @@ However a downside of using Django is that I am not as familiar with this techno
 ## Possible enhancements 
 - [ ] Fix nacebel english labels that are always empty
 - [ ] Make sections and level collapsible in the form
-
+- [ ] Create a single view with all the information on the admin interface
 ## Possible (but possibly premature) optimisations
 ### Pre-render codes tree for form
