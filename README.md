@@ -203,6 +203,7 @@ It doesn't seem mandatory in a MVP (minimum viable product)
 * Credentials are outside the codebase 
 * The Docker container runs with a non priviledged user
 * It should be deployed with a readonly filesystem
+* The unique URL to the quote of the user is a UUID to block quotes enumeration via a sequential ID
 
 For the purpose of this challenge, I didn't generate a proper SSL certificate for the website but it would be mandatory for real production trafic.
 
