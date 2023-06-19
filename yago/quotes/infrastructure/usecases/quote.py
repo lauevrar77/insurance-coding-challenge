@@ -1,17 +1,20 @@
+from dataclasses import dataclass
+
+from quotes.infrastructure.persistance.views.nacebel_codes import NacebelCodeView
+from quotes.infrastructure.services.insurer import (
+    GetQuoteCommand,
+    InsurerService,
+    Quote,
+)
 from quotes.models import (
-    SimulatedQuote,
-    CoverPremium,
-    QuoteSimulation,
     AdvicedCover,
+    CoverPremium,
     Enterprise,
     LeadContact,
     QuoteAdvice,
+    QuoteSimulation,
+    SimulatedQuote,
 )
-from quotes.infrastructure.persistance.views.nacebel_codes import NacebelCodeView
-from quotes.infrastructure.services.insurer import Quote
-from dataclasses import dataclass
-
-from quotes.infrastructure.services.insurer import InsurerService, GetQuoteCommand
 
 
 @dataclass(frozen=True)

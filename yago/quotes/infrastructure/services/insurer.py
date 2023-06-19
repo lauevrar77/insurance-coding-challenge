@@ -1,6 +1,7 @@
-import requests
-from typing import Any
 from dataclasses import dataclass
+from typing import Any
+
+import requests
 
 
 @dataclass(frozen=True)

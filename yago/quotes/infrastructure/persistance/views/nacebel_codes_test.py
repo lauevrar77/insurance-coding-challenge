@@ -1,6 +1,8 @@
+from quotes.infrastructure.persistance.views.nacebel_codes import (
+    NacebelCodeTree,
+    NacebelCodeView,
+)
 from quotes.models import NacebelCode
-from quotes.infrastructure.persistance.views.nacebel_codes import NacebelCodeView
-from quotes.infrastructure.persistance.views.nacebel_codes import NacebelCodeTree
 
 
 def test_codes_as_tree(db):

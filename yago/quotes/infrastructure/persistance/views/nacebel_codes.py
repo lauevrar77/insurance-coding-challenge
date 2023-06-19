@@ -1,5 +1,6 @@
-from quotes.models import NacebelCode
 from copy import deepcopy
+
+from quotes.models import NacebelCode
 
 
 class NacebelCodeTree:

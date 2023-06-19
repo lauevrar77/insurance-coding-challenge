@@ -1,6 +1,8 @@
-from quotes.models import LeadContact, Enterprise
-from django.http import HttpRequest
 from dataclasses import dataclass
+
+from django.http import HttpRequest
+
+from quotes.models import Enterprise, LeadContact
 
 
 @dataclass(frozen=True)

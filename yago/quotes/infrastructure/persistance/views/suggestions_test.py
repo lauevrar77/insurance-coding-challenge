@@ -1,9 +1,5 @@
-from quotes.models import (
-    NacebelCode,
-    NacebelCodeAdvice,
-    NacebelCodeCoverAdvice,
-)
 from quotes.infrastructure.persistance.views.suggestions import SuggestionView
+from quotes.models import NacebelCode, NacebelCodeAdvice, NacebelCodeCoverAdvice
 
 
 def test_suggest_for_codes(

@@ -2,15 +2,15 @@ from django.contrib import admin
 
 # Register your models here.
 from quotes.models import (
+    AdvicedCover,
+    CoverPremium,
+    Enterprise,
+    LeadContact,
     NacebelCode,
     NacebelCodeAdvice,
     NacebelCodeCoverAdvice,
-    LeadContact,
-    Enterprise,
-    SimulatedQuote,
-    CoverPremium,
     QuoteSimulation,
-    AdvicedCover,
+    SimulatedQuote,
 )
 
 

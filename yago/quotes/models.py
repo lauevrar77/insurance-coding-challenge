@@ -1,10 +1,11 @@
-from django.db import models
+import uuid
+
 from django.core.validators import (
+    MaxLengthValidator,
     MinLengthValidator,
     MinValueValidator,
-    MaxLengthValidator,
 )
-import uuid
+from django.db import models
 
 
 # Create your models here.

@@ -1,20 +1,19 @@
-from quotes.models import QuoteSimulation, QuoteAdvice
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+
 from quotes.infrastructure.persistance.views.nacebel_codes import NacebelCodeView
 from quotes.infrastructure.persistance.views.suggestions import SuggestionView
-from quotes.infrastructure.services.insurer import (
-    InsurerService,
-)
-from quotes.infrastructure.usecases.lead import LeadUseCase, CreateLeadCommand
+from quotes.infrastructure.services.insurer import InsurerService
+from quotes.infrastructure.usecases.lead import CreateLeadCommand, LeadUseCase
 from quotes.infrastructure.usecases.quote import (
     QuoteUseCase,
-    SimulateQuoteCommand,
     SaveSimulationCommand,
+    SimulateQuoteCommand,
 )
+from quotes.models import QuoteAdvice, QuoteSimulation
 
 # Create your views here.
 

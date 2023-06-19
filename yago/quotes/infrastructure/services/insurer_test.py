@@ -1,4 +1,5 @@
 import pytest
+
 from quotes.infrastructure.services.insurer import GetQuoteCommand
 
 
