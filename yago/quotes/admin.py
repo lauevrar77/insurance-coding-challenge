@@ -70,9 +70,10 @@ class AdvicedCoverInline(admin.StackedInline):
 
 
 class QuoteSimulationAdmin(admin.ModelAdmin):
-    list_display = ["lead_contact", "enterprise"]
+    list_display = ["lead_contact", "enterprise", "reviewed"]
     search_fields = ["lead_contact", "enterprise"]
     inlines = [AdvicedCoverInline]
+    list_filter = ["reviewed"]
 
     def get_form(self, request, obj=None, **kwargs):
         form = super(QuoteSimulationAdmin, self).get_form(request, obj, **kwargs)

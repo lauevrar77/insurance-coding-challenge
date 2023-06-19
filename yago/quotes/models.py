@@ -141,6 +141,7 @@ class QuoteSimulation(models.Model):
         max_length=1, choices=[("S", "Small"), ("L", "Large")]
     )
     simulated_quote = models.ForeignKey(SimulatedQuote, on_delete=models.CASCADE)
+    reviewed = models.BooleanField(default=False)
 
 
 class AdvicedCover(models.Model):
