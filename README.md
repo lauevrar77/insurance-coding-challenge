@@ -1,12 +1,77 @@
-# Yago Technical Challenge
+# Insurance technical challenge
+The aim of this challenge is to create a insurance simulation system.
+* The user fills a form with his information
+* These information are saved for later sale usage
+* These information are used to simulate a quote with the help of an external system
+* A recommandation is made on the covers and ceiling the user should make
+* The result is presented to the user with a possibility for him to go back to it later
 
-## How to ?
+## Implemented features
+
+### For the user
+The user can :
+* Fill the form
+  * Personal information
+  * Enterprise information
+  * Domain of activity
+* Get his quote 
+* Be adviced of the best covers for his domain of activity
+* Go back to his quote later (via a unique URL)
+
+### For the sales persons
+The sales persons can :
+* Connect to an admin interface 
+* Input data in the covers recommandation system
+* Access existing quotes
+* Modify a quote to mark it as "reviewed" : here we suppose that a cover is reviewed when the sales person have contacted the lead in order to contractualize the quote or cancel it.
+
+
+## Install global dependencies
+* `just` : on macos `brew install just` should be enough
+* `docker` and `docker compose`
+
+If you want to run the app locally (not on docker)
+* `python 3.10` : suggested installation method is through `asdf` 
+* `pipenv` for python dependencies management : `pip3 install pipenv`
+
+## Run the app via Docker
+
+### Configure
+Copy `.env.example` to `.env`.
+
+An example configuration is like this : 
+```
+INSURER_ENDPOINT="https://staging-gtw.seraphin.be"
+INSURER_API_KEY="changeme"
+POSTGRES_NAME="postgres"
+POSTGRES_USER="postgres"
+POSTGRES_PASSWORD="suchpassword"
+POSTGRES_HOST="db"
+DEBUG="False"
+```
+
+Don't forget to **change the api key**
 
 ### Run
+The simplest method is via : `just run_docker`
+
+This will run the app via `docker compose`.
+
+However, this is not enough to have a fully functionnal app.
+
+You also have to `migrate` and `seed` the database
+
+### Migrate the database
+`just migrate_docker`
+
 
 ### Seed the database
+`just seed_docker`
 
-## Features
+### Create admin user
+Creating an admin user is mandatory to connect to the sales/admin interface (at URI `/admin`)
+
+To create an admin user : `just createadmin_docker`
 
 ## Limitations
 ### No single view with all information on admin interface
@@ -38,22 +103,19 @@ However a downside of using Django is that I am not as familiar with this techno
 ### Not separating frontend and backend
 ...
 
-### Using SQLite
-
 ### Not creating a tree structure in the nacebel codes table
+
+### Not sending an email with the quote URL
 
 ## Hypothesis
 ### Advices only on five digits codes
 * Not enforced on admin interface at the moment
 
+## Security concerns
 
-## Todo 
+## Possible enhancements 
 - [ ] Fix nacebel english labels that are always empty
 - [ ] Make sections and level collapsible in the form
-- [ ] Add a dockerfile
-- [ ] Add a dockercompose
-- [ ] Deploy on a production server
-- [ ] Use postgresql
 
 ## Possible (but possibly premature) optimisations
-- Pre render codes tree for form
+### Pre-render codes tree for form
