@@ -21,5 +21,6 @@ services:
       - POSTGRES_HOST=db
       - INSURER_ENDPOINT=${INSURER_ENDPOINT}
       - INSURER_API_KEY=${INSURER_API_KEY}
+      - DEBUG=False
     depends_on:
       - db

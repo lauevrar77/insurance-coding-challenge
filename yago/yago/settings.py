@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-29w=@-jo&ov#5gbjtq9l7!qyv7_82e(bf$$k+o#jw$%#8vt+@("
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -136,5 +136,5 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-INSURER_ENDPOINT = os.environ["INSURER_ENDPOINT"]
-INSURER_API_KEY = os.environ["INSURER_API_KEY"]
+INSURER_ENDPOINT = os.environ.get("INSURER_ENDPOINT")
+INSURER_API_KEY = os.environ.get("INSURER_API_KEY")
