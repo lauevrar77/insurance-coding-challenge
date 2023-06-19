@@ -207,10 +207,12 @@ It doesn't seem mandatory in a MVP (minimum viable product)
 For the purpose of this challenge, I didn't generate a proper SSL certificate for the website but it would be mandatory for real production trafic.
 
 ## Possible enhancements 
-- [ ] have a proper unit test coverage
+- [ ] Have a proper unit test coverage
 - [ ] Fix nacebel english labels that are always empty
 - [ ] Make sections and level collapsible in the form
 - [ ] Create a single view with all the information on the admin interface
 - [ ] Creating a real tree structure on the naceel codes table
+- [ ] Add CSS and make it beautiful
+- [ ] Make code sections a dropdown
 ## Possible (but possibly premature) optimisations
 * Pre-render codes tree for form
