@@ -166,29 +166,51 @@ I finaly decided to select Django as :
 
 However a downside of using Django is that I am not as familiar with this technology.
 
-### Justfile
-...
-
 ### Suggestion system
-...
+The suggestion system works by creating `Nacebel code advices`.
+
+This domain object's aim is to represent the adviced `deductible formula`, the `coverage ceiling formula` as well as adviced covers for the selected code. 
+
+If a quote has multiple `Nacebel codes`, all the `advices` would be loaded from the database and merged using the following algorithm : 
+* For each `deductible` and `coverage ceiling` formulas, the maximum value is selected among the once present in the advices
+* The `adviced covers` are all adviced.
+
+
+#### Note
+At the moment, `Nacebel code advices` can only be created for `level 5` code. This hypothesis was made for simplification reasons. It would be "quite easy" to remove it (if it is meaninful for the business). 
+
+Each `level 5` code would be divided in its constituting parts and each part would be queried in the database for `Nacebel code advices`. The advices merging algorithm wouldn't need to be modified.
 
 ### Not separating frontend and backend
-...
+In this challenge, the frontend and the backend are tighted in a single application.
 
-### Not creating a tree structure in the nacebel codes table
+This may seem a "bad practice" as of today's standards as technologies as VueJS often live in another repository and request the backend application via API requests. 
+
+If I totally agree with this argument, I made this choice of using a single codebase and simple technologies as it is a technical challenge were the frontend is explicitely said to not be a priority (this is also the reason why it is so "rudimentary" and ugly).
+
+The downsides of this choice are however counterbalanced by the usage of `commands` in `persitance views` and `usecases`. Indeed, with this pattern it is "quite easy" to add more transports (API for instance) to the app. API endpoints would just have to be created and create `commands` that are sent to usecases and views.
 
 ### Not sending an email with the quote URL
+The exercise asked to send a link to the quote in an email to the client. 
 
-## Hypothesis
-### Advices only on five digits codes
-* Not enforced on admin interface at the moment
+I decided not to send the email. I only advertise the user that he can save the link of the quote for later use.
+
+I took this decision as sending the email is a technical complexity that doesn't offer much business value. 
+
+It doesn't seem mandatory in a MVP (minimum viable product)
 
 ## Security concerns
+* Credentials are outside the codebase 
+* The Docker container runs with a non priviledged user
+* It should be deployed with a readonly filesystem
+
+For the purpose of this challenge, I didn't generate a proper SSL certificate for the website but it would be mandatory for real production trafic.
 
 ## Possible enhancements 
 - [ ] have a proper unit test coverage
 - [ ] Fix nacebel english labels that are always empty
 - [ ] Make sections and level collapsible in the form
 - [ ] Create a single view with all the information on the admin interface
+- [ ] Creating a real tree structure on the naceel codes table
 ## Possible (but possibly premature) optimisations
-### Pre-render codes tree for form
+* Pre-render codes tree for form
