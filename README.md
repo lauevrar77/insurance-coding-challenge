@@ -6,6 +6,11 @@
 
 ### Seed the database
 
+## Features
+
+## Limitations
+### No single view with all information on admin interface
+
 ## Design decisions
 ### Using a complete web framework
 For this technical challenge, I decided to use a features-full web framework ([Django](https://www.djangoproject.com)). 
@@ -45,6 +50,10 @@ However a downside of using Django is that I am not as familiar with this techno
 ## Todo 
 - [ ] Fix nacebel english labels that are always empty
 - [ ] Make sections and level collapsible in the form
+- [ ] Add a dockerfile
+- [ ] Add a dockercompose
+- [ ] Deploy on a production server
+- [ ] Use postgresql
 
 ## Possible (but possibly premature) optimisations
 - Pre render codes tree for form

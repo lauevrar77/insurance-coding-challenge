@@ -10,6 +10,8 @@ class GetQuoteCommand:
     legal_name: str
     natural_person: bool
     nacebel_codes: list[str]
+    deductible_formula: str
+    coverage_ceiling_formula: str
 
     def __post_init__(self):
         assert self.annual_revenue > 0, "Annual revenue must be greater than 0"
@@ -18,14 +20,30 @@ class GetQuoteCommand:
         ), "Enterprise number length must be equal to 10"
         assert len(self.legal_name) > 0, "Legal name length must be greater than 0"
         assert len(self.nacebel_codes) > 0, "NACEBEL codes must be provided"
+        assert self.deductible_formula in [
+            "S",
+            "M",
+            "L",
+        ], "Deductible formula must be S, M or L"
+        assert self.coverage_ceiling_formula in [
+            "S",
+            "L",
+        ], "Coverage ceiling formula must be S, M or L"
 
     def to_dict(self):
+        size_converter = {
+            "S": "small",
+            "M": "medium",
+            "L": "large",
+        }
         return {
             "annualRevenue": self.annual_revenue,
             "enterpriseNumber": self.enterprise_number,
             "legalName": self.legal_name,
             "naturalPerson": self.natural_person,
             "nacebelCodes": self.nacebel_codes,
+            "deductibleFormula": size_converter[self.deductible_formula],
+            "coverageCeilingFormula": size_converter[self.coverage_ceiling_formula],
         }
 
 

@@ -11,12 +11,22 @@
     <h1>Simuler mon assurance</h1>
     <form action="{% url 'submit_quote' %}" method="post">
         {% csrf_token %}
-        {% if error_message %}
+        {% if error_messages %}
         <fieldset>
             <legend>
                 <h1>Erreurs dans le formulaire</h1>
             </legend>
-            <p><strong>{{ error_message }}</strong></p>
+            <ul>
+                {% for field, errors in error_messages.items %}
+                <li>{{field}}
+                    <ul>
+                        {% for error in errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
         </fieldset>
         {% endif %}
         <fieldset>
