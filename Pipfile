@@ -8,6 +8,9 @@ django = "*"
 psycopg2-binary = "*"
 requests = "*"
 python-dotenv = "*"
+gunicorn = "*"
+whitenoise = "*"
+pyyaml = "*"
 
 [dev-packages]
 pytest = "*"
@@ -16,7 +19,6 @@ flake8 = "*"
 isort = "*"
 black = "*"
 pyright = "*"
-pyyaml = "*"
 pytest-django = "*"
 
 [requires]
